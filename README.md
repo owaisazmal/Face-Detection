@@ -8,6 +8,9 @@ This is a simple web application that detects faces in real-time using the face-
 - Streams video from the user's webcam.
 - Draws rectangles around detected faces on the video feed.
 
+## Screenshot
+![IMG_4001](https://github.com/owaisazmal/Face-Detection/assets/87142612/b3fea3ca-bcdf-4042-ae10-bb32ae896bb4)
+
 ## Usage
 
 1. Open the `index.html` file in a web browser.
