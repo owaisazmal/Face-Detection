@@ -4,62 +4,151 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Live Face Detection</title>
+  <meta name="description" content="Real-time emotion recognition using facial detection technology">
+  <title>Emotion Recognition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <script defer src="face-api.min.js"></script>
   <script defer src="script.js"></script>
   <style>
-    /* General body styling */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #030303, #ff3030); 
-      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      background: #000;
+      font-family: 'ITC Avant Garde Gothic', 'Avant Garde', 'Century Gothic', 'Futura', sans-serif;
       color: #fff;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* Styling for the video element */
-    video {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      border-radius: 8px;
-    }
-
-    /* Canvas styling for drawing */
-    canvas {
+    body::before,
+    body::after {
+      content: '';
       position: absolute;
-      border-radius: 8px;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 0;
     }
 
-    /* Header styles */
-    h1 {
+    body::before {
+      background-image:
+        linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.15) 49%, rgba(255, 255, 255, 0.15) 51%, transparent 52%),
+        linear-gradient(135deg, transparent 48%, rgba(255, 255, 255, 0.12) 49%, rgba(255, 255, 255, 0.12) 51%, transparent 52%);
+      background-size: 200px 200px, 250px 250px;
+      animation: moveLinesOne 40s linear infinite;
+    }
+
+    body::after {
+      background-image:
+        linear-gradient(67deg, transparent 48%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 52%);
+      background-size: 180px 180px;
+      animation: moveLinesTwo 50s linear infinite reverse;
+    }
+
+    @keyframes moveLinesOne {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(200px, 200px);
+      }
+    }
+
+    @keyframes moveLinesTwo {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-180px, 180px);
+      }
+    }
+
+    .header {
       position: absolute;
-      top: 20px;
+      top: 1.25rem;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 24px;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      z-index: 100;
+    }
+
+    .logo {
+      max-width: 220px;
+      height: auto;
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 1.75rem);
+      font-weight: 10;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.5px;
+      margin: 1rem 0 0 0;
+      text-align: center;
+    }
+
+    .video-container {
+      position: relative;
+      margin-top: 6.5rem;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #video {
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      display: block;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        top: 1rem;
+      }
+
+      .logo {
+        max-width: 150px;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      .video-container {
+        margin-top: 5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Live Face Detection</h1>
-  <video id="video" width="720" height="560" autoplay muted></video>
-  <script>
-    // Example JavaScript to initiate face detection
-    document.addEventListener("DOMContentLoaded", function() {
-      const video = document.getElementById('video');
-      navigator.mediaDevices.getUserMedia({ video: {} })
-        .then(stream => {
-          video.srcObject = stream;
-        })
-        .catch(err => {
-          console.error("Error accessing webcam", err);
-        });
-    });
-  </script>
+  <div class="header">
+    <img src="Logo Bianco.png" alt="Logo" class="logo">
+  </div>
+  <div class="video-container">
+    <video id="video" width="1280" height="720" autoplay muted playsinline></video>
+    <h1>Emotion Recognition</h1>
+  </div>
 </body>
 </html>
